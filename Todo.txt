@@ -1,0 +1,12 @@
+1. A playing field (a tiled map of the ground where the game is ex. size theortically be 50x50 array) (Andrew, I'll work on this first)
+
+2. Checkpoints (a starting point and an end point, or any in between if need be)
+
+3. Enemy mob (only one type, a basic enemy, has a set hp, set speed, and a destination for where its going)
+
+4. Bullet (has a set damage, speed, and destination)
+
+5. Tower (only one type, a basic tower, has a set damage to give to the bullet, targets an enemy to shoot at,
+         has a radius for where it can target)
+
+6. Player (shows how much money and lives the player has.)
