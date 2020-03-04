@@ -1,15 +1,19 @@
 function love.load()
 	player = {}
-	player.x = 0
+    player.x = 0
+    player.y = 550
 	player.bullets = {}
-	player.cooldown = 20
-	player.fire = function()
-		player.cooldown = 20
-		bullet = {}
-		bullet.x = player.x + 35
-		bullet.y = 400
-		table.insert(player.bullets, bullet)
-		end
+    player.cooldown = 20
+    player.speed = 10
+    player.fire = function()
+        if player.cooldown <= 0 then
+            player.cooldown = 20
+            bullet = {}
+            bullet.x = player.x + 35
+            bullet.y = player.y
+            table.insert(player.bullets, bullet)
+        end
+	end
 end
 
 function love.update(dt) --- dt =  delta time variable
@@ -17,9 +21,9 @@ function love.update(dt) --- dt =  delta time variable
 	player.cooldown = player.cooldown - 1
 	--- Move box left and right --
 	if love.keyboard.isDown("right") then
-		player.x = player.x + 1
+		player.x = player.x + player.speed
 	elseif love.keyboard.isDown("left") then
-		player.x = player.x - 1
+		player.x = player.x - player.speed
 	end
 	
 	if love.keyboard.isDown("space") then
@@ -35,10 +39,12 @@ function love.update(dt) --- dt =  delta time variable
 end
 
 function love.draw ()
-	--- Set color of box---
-	love.graphics.setColor(0, 0, 255)
-	--- Drawing the box that moves ---
-	love.graphics.rectangle("fill", player.x, 400, 80, 20)
+	--- Draw the Player / Shooter---
+    love.graphics.setColor(0, 0, 255)
+    love.graphics.rectangle("fill", player.x, player.y, 80, 20)
+
+
+	--- Drawing Bullets ---
 	love.graphics.setColor(255, 255, 255)	
 	for _,b in pairs(player.bullets) do
 		love.graphics.rectangle("fill", b.x, b.y, 10, 10)
