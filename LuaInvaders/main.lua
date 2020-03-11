@@ -5,6 +5,21 @@ enemies_controller = {}
 enemies_controller.enemies = {}
 enemies_controller.image = love.graphics.newImage('enemy.png')
 
+--- Collision ---
+function checkCollisions(enemies, bullets)
+    for _, e in ipairs(enemies) do
+        for _, b in pairs(bullets) do
+            if b.y <= e.y + e.height and b.x > e.x and b.x < e.x + e.width then
+                print("Collision!")
+                table.remove(enemies, i)
+                -- Destroy Enemy ---
+            end
+        end
+    end
+end
+
+
+
 --- Enemy set up because load is called after -- 
 function love.load()
 --- Player set up ---
@@ -16,26 +31,29 @@ function love.load()
     player.speed = 2
     player.image = love.graphics.newImage('player.png')
     player.fire_sound = love.audio.newSource("fire.wav", "static")
+    --- Player Functions ---
     player.fire = function()
         player.fire_sound:play()
         if player.cooldown <= 0 then          
             player.cooldown = 20
             bullet = {}
             bullet.x = player.x + 4
-            bullet.y = player.y + 3
+            bullet.y = player.y
             table.insert(player.bullets, bullet)
         end
     end    
     --- Enemy set up ---
-    enemies_controller.spawnEnemy(0, 0)
-    enemies_controller.spawnEnemy(20, 0)
+    enemies_controller.spawnEnemy(2, 5)
+    --enemies_controller.spawnEnemy(20, 0)
     
 end
 
 function enemies_controller:spawnEnemy(x, y)
     enemy = {}
     enemy.x = x
-    enemy.y = y
+    enemy.y = math.random(20) 
+    enemy.width = 10
+    enemy.height = 10
 	enemy.bullets = {}
     enemy.cooldown = 20
     enemy.speed = 2
@@ -70,17 +88,22 @@ function love.update(dt) --- dt =  delta time variable
 		player.fire()
     end
     
-    --- Moving the enemies around --- !!!!CURRENTLY THROWS ERROR THAT y doesn't exsist
-    ---for _,e in pairs(enemies_controller.enemies) do
-        ---e.y = e.y + 1
-    ---end
+    --- Moving the enemies around ---
+    for _, e in pairs(enemies_controller.enemies) do
+        if e.y == 0 then 
+            e.y = 1 
+        end
+        e.y = e.y + 1        
+    end
 	
-	for i,b in ipairs(player.bullets) do
+	for i, b in ipairs(player.bullets) do
 		if b.y < -10 then
 			table.remove(player.bullets, i)
 		end
 		b.y = b.y - 2
-	end
+    end
+    
+    checkCollisions(enemies_controller.enemies, player.bullets)
 end
 
 function love.draw ()
@@ -90,13 +113,13 @@ function love.draw ()
     love.graphics.draw(player.image, player.x, player.y)
 
     -- Draw Enemies ---
-    for _,e in pairs(enemies_controller.enemies) do
+    for _, e in pairs(enemies_controller.enemies) do
         love.graphics.draw(enemies_controller.image, e.x, e.y, 0)
     end
 
 	--- Drawing Bullets ---
 	love.graphics.setColor(255, 255, 255)	
-	for _,b in pairs(player.bullets) do
+	for _, b in pairs(player.bullets) do
 		love.graphics.rectangle("fill", b.x, b.y, 2, 2)
 	end
 end
