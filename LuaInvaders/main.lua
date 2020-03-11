@@ -4,7 +4,7 @@ enemy = {}
 enemies_controller = {}
 enemies_controller.enemies = {}
 enemies_controller.image = love.graphics.newImage('enemy.png')
----player.fire_sound = love.audio.newSource('fire.wav')
+
 --- Enemy set up because load is called after -- 
 function love.load()
 --- Player set up ---
@@ -15,9 +15,9 @@ function love.load()
     player.cooldown = 20
     player.speed = 2
     player.image = love.graphics.newImage('player.png')
-    ---player.fire_sound = love.audio.newSource('fire.wav') 
+    player.fire_sound = love.audio.newSource("fire.wav", "static")
     player.fire = function()
-        ---love.audio.play(player.fire_sound)
+        player.fire_sound:play()
         if player.cooldown <= 0 then          
             player.cooldown = 20
             bullet = {}
