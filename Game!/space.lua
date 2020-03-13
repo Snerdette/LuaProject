@@ -10,6 +10,8 @@ game_music = love.audio.newSource('GameMusic.mp3', 'static')
 particle_systems = {}
 particle_systems.img = love.graphics.newImage('particle.png')
 
+space = {}
+
 function particle_systems:spawn(x, y)
     local ps = {}
     ps.x = x
@@ -58,7 +60,7 @@ end
 
 --- Enemy set up because load is called after -- 
 -------------------------------------------------------------------------------------  LOAD  -------------------------------------------------
-function love.load()
+function space.spaceload()
 --- Game Music Looping  -----
     game_music:setLooping(true)
     love.audio.play(game_music)
@@ -121,7 +123,7 @@ function enemy:fire ()
 end
 
 --- Constantly updating Function ----------------------------------------------------  UPDATE  ------------------------------------------
-function love.update(dt) --- dt =  delta time variable
+function space.spaceupdate(dt) --- dt =  delta time variable
     
 --- Bullet cooldown decrement---
 	player.cooldown = player.cooldown - 1
@@ -164,7 +166,7 @@ function love.update(dt) --- dt =  delta time variable
     checkCollisions(enemies_controller.enemies, player.bullets)
 end
 -------------------------------------------------------------------------------------   DRAW   ---------------------------------------------------------
-function love.draw ()
+function space.spacedraw()
 --- Setting Scale ---
     love.graphics.scale(3)
     --- Drawing background ---
@@ -194,3 +196,5 @@ function love.draw ()
 		love.graphics.rectangle("fill", b.x, b.y, 2, 2)
 	end
 end
+
+return space

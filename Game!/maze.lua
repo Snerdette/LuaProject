@@ -1,3 +1,4 @@
+--Importing other files--------------------- 
 map     = require 'class.map'
 entity  = require 'class.entity'
 test    = require 'testmap'
@@ -6,6 +7,7 @@ require 'camera'
 
 maze = {}
 
+--loads the necessary stuff for maze-------------
 function maze.mazeload()
   width = love.graphics.getWidth()
   height = love.graphics.getHeight()
