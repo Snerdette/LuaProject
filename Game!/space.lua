@@ -16,7 +16,7 @@ enemies_controller.enemies = {}
 enemies_controller.image = love.graphics.newImage('enemy.png')
 enemies_controller.hit_sound = love.audio.newSource("hit.wav", "static")
 game_music = love.audio.newSource('GameMusic.mp3', 'static')
-
+space = {}
 --- Collision of Bullets and Enemies-------------------------------------------------  CHECK COLLISION  --------------------------------------
 function checkCollisions(enemies, bullets)
     for _, e in ipairs(enemies) do
