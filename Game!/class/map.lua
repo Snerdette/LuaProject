@@ -19,22 +19,22 @@ setmetatable(m,{__call = m.new})
 -- add tile image
 TileW, TileH = 16,16
 love.graphics.setDefaultFilter("nearest")
-  Tileset = love.graphics.newImage('tileset.png')
+Tileset = love.graphics.newImage('tileset.png')
   
-  local tilesetW, tilesetH = Tileset:getWidth(), Tileset:getHeight()
+local tilesetW, tilesetH = Tileset:getWidth(), Tileset:getHeight()
   
-  local quadInfo = { 
+local quadInfo = { 
     {  0,  0 }, 
     { 16,  0 },
     {  0, 16 },
     { 16, 16 },
-  }
+}
 
-  Quads = {}
-  for i,info in ipairs(quadInfo) do
+Quads = {}
+for i,info in ipairs(quadInfo) do
     -- info[1] = x, info[2] = y
-    Quads[i] = love.graphics.newQuad(info[1], info[2], TileW, TileH, tilesetW, tilesetH)
-  end
+	Quads[i] = love.graphics.newQuad(info[1], info[2], TileW, TileH, tilesetW, tilesetH)
+end
 -----------------------------------------------------------
 -- draw map
 function m.draw(map)

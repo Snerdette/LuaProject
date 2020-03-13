@@ -23,7 +23,7 @@ end
 function e:draw()
 	local x,y,w,h = self.x,self.y,self.w,self.h
 	love.graphics.setColor(self.color)
-	love.graphics.rectangle('line',x,y,w,h)
+	love.graphics.rectangle('fill',x,y,w,h)
 end
 -----------------------------------------------------------
 return e
