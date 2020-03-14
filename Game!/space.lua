@@ -22,7 +22,7 @@ function checkCollisions(enemies, bullets)
     for _, e in ipairs(enemies) do
         for _, b in pairs(bullets) do
             if b.y <= e.y + e.height and b.x > e.x and b.x < e.x + e.width then
-                -- Destroy Enemy ---
+                --- Destroy Enemy ---
                 ---particle_systems:spawn(e.x, e.y)
                 print("Collision!")
                 enemies_controller.hit_sound:play()
@@ -67,7 +67,7 @@ function space.spaceload()
         end
     end    
 --- Spawning Multiple Enemies ---
-    for i=0, 10 do
+    for i = 0, 10 do
         enemies_controller:spawnEnemy(i * 15, 0)
     end
     
